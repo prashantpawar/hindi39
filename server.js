@@ -23,7 +23,7 @@ var db = new sqlite3.Database(dbFile);
 // if ./.data/sqlite.db does not exist, create it, otherwise print records to console
 db.serialize(function() {
   if (!exists) {
-    db.run("CREATE TABLE Dreams (dream TEXT)");
+    db.run("CREATE TABLE word (dream TEXT)");
     console.log("New table Dreams created!");
 
     // insert default dreams
@@ -55,6 +55,11 @@ app.get("/getDreams", function(request, response) {
     response.send(JSON.stringify(rows));
   });
 });
+
+
+app.get("/random", function(request, response) {
+  
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function() {
