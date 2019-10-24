@@ -26,16 +26,19 @@ db.serialize(function() {
     db.run("CREATE TABLE Words (word TEXT)");
     console.log("New table Words created!");
 
-    
+    const hindi_words = fs.readFileSync("hi_IN.txt");
+
+    hindi_words.map(function (word) {
     // insert default dreams
-    db.serialize(function() {
-      db.run(
-        'INSERT INTO Words (word) VALUES ("Find and count some sheep"), ("Climb a really tall mountain"), ("Wash the dishes")'
-      );
+      db.serialize(function() {
+        db.run(
+          'INSERT INTO Words (word) VALUES (' + word + '")'
+        );
+      });
     });
   } else {
     console.log('Database "Words" ready to go!');
-    db.each("SELECT * from Words", function(err, row) {
+    db.each("SELECT * from Words LIMIT 10", function(err, row) {
       if (row) {
         console.log("record:", row);
       }
