@@ -26,6 +26,7 @@ db.serialize(function() {
     db.run("CREATE TABLE Words (word TEXT)");
     console.log("New table Words created!");
 
+    
     // insert default dreams
     db.serialize(function() {
       db.run(
