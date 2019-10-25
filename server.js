@@ -30,13 +30,16 @@ db.serialize(function() {
 
     const hindi_words = fs.readFileSync("hi_IN.txt");
 
-    hindi_words.map(function (word) {
+    hindi_words.map(function (index, word) {
     // insert default dreams
+      console.log(index, word);
       db.serialize(function() {
+        console.log('INSERT INTO Words (word) VALUES ("' + word + '")');
         db.run(
           'INSERT INTO Words (word) VALUES (' + word + '")'
         );
       });
+      process.exit(1);
     });
   } else {
     console.log('Database "Words" ready to go!');
