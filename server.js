@@ -2,9 +2,10 @@
 // where your node app starts
 
 // init project
-var express = require("express");
-var bodyParser = require("body-parser");
-var app = express();
+const _ = require("lodash/fp");
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // we've started you off with Express,
@@ -28,18 +29,15 @@ db.serialize(function() {
     db.run("CREATE TABLE Words (word TEXT)");
     console.log("New table Words created!");
 
-    const hindi_words = fs.readFileSync("hi_IN.txt");
+    const hindi_words = (fs.readFileSync("hi_IN.txt")).toString().split("\n");
 
-    hindi_words.map(function (index, word) {
+    hindi_words.map(function (word) {
     // insert default dreams
-      console.log(index, word);
       db.serialize(function() {
-        console.log('INSERT INTO Words (word) VALUES ("' + word + '")');
         db.run(
-          'INSERT INTO Words (word) VALUES (' + word + '")'
+          'INSERT INTO Words (word) VALUES ("' + word + '")'
         );
       });
-      process.exit(1);
     });
   } else {
     console.log('Database "Words" ready to go!');
@@ -67,7 +65,7 @@ app.get("/getWords", function(request, response) {
 
 
 app.get("/random", function(request, response) {
-  
+  response.send("Unimplemented");
 })
 
 // listen for requests :)
