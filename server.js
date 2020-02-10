@@ -29,7 +29,7 @@ db.serialize(function() {
     db.run("CREATE TABLE Words (word TEXT)");
     console.log("New table Words created!");
 
-    const hindi_words = (fs.readFileSync("hi_IN.txt")).toString().split("\n");
+    const hindi_words = (fs.readFileSync("hindi_curated.csv")).toString().split("\n");
 
     hindi_words.map(function (word) {
     // insert default dreams
@@ -58,17 +58,19 @@ app.get("/", function(request, response) {
 // currently this is the only endpoint, ie. adding dreams won't update the database
 // read the sqlite3 module docs and try to add your own! https://www.npmjs.com/package/sqlite3
 app.get("/getWords", function(request, response) {
-  db.all("SELECT * from Words LIMIT 10", function(err, rows) {
+  db.all("SELECT * from Words LIMIT 48", function(err, rows) {
     response.send(JSON.stringify(rows));
   });
 });
 
 
 app.get("/random", function(request, response) {
-  response.send("Unimplemented");
+  db.all("SELECT * from Words ORDER BY RANDOM() LIMIT 48", function(err, rows) {
+    response.send(JSON.stringify(rows));
+  });
 })
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function() {
+var listener = app.listen(40065, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });

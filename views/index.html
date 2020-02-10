@@ -18,6 +18,9 @@
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
     
+    <script src="https://unpkg.com/grapheme-splitter@1.0.4/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash-fp/0.10.4/lodash-fp.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="/client.js" defer></script>
   </head>
@@ -29,7 +32,19 @@
     </header>
 
     <div id="app">
-        {{ message }}
+        <table id="example-1">
+          <tr v-for="(row, index) in items">
+            <td v-for="word in row">
+              {{ word.label }}
+            </td>
+            <td>
+              {{ rowGraphemeSum[index] }}
+            </td>
+          </tr>
+        </table>
+        <ul>
+          <li v-for="word in raw">{{ word.label }}</li>
+        </ul>
     </div>
     <footer>
     </footer>
