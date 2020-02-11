@@ -5,8 +5,11 @@ const levenshtein = require('fast-levenshtein');
 const filename = "hindi_sahstranam_vishnu-filtered.csv";
 const outfilename = "hindi_sahstranam_vishnu-filtered.csv";
 
-const calculateDistance = (limit) => {
-    const sahastranam = (fs.readFileSync(`${__dirname}/${filename}`)).toString().split("\n");
+const loadData = _ => (fs.readFileSync(`${__dirname}/${filename}`)).toString().split("\n");
+
+const dropNonUniques = R.drop(item => R.take(3, item.word1) === R.take(3, item.word2))
+
+const calculateDistance = R.curry((sahastranam) => {
     let distances = R.map(word1 =>
         R.map(word2 => ({
             word1: word1,
@@ -25,19 +28,11 @@ const calculateDistance = (limit) => {
     // Sort by distance values
     distances = R.sortBy(R.prop('distance'), distances);
 
-    if(limit) {
-        distances = R.take(limit, distances);
-    }
-
     return distances;
-};
+});
 
-const printPairs = (pairs) => {
-    R.forEach(item => {
-        console.log(item.distance, item.word1, item.word1);
-    }, pairs);
-};
+const getWordPairs = R.pipe(loadData, dropNonUniques, calculateDistance, R.take(10));
 
 module.exports = {
-    calculateDistance
+    getWordPairs
 };

@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const { calculateDistance } = require('./hindi/levenshtein-distance');
+const { getWordPairs } = require('./hindi/levenshtein-distance');
 
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -75,7 +75,7 @@ app.get("/random", function (request, response) {
 
 // Hindi endpoints
 app.get("/hindi", (_, response) => response.sendFile(__dirname + "/hindi/views/hindi.html"));
-app.get("/api/v1/hindi", (_, response) => response.send(JSON.stringify(calculateDistance(10))));
+app.get("/api/v1/hindi", (_, response) => response.send(JSON.stringify(getWordPairs())));
 
 
 // listen for requests :)
