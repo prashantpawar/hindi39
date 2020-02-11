@@ -8,6 +8,9 @@ const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+const { calculateDistance } = require('./hindi/levenshtein-distance');
+
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -24,7 +27,7 @@ console.log(`${exists} exists` + __dirname);
 console.log(process.cwd());
 
 // if ./.data/sqlite.db does not exist, create it, otherwise print records to console
-db.serialize(function() {
+db.serialize(function () {
   if (!exists) {
     db.run("CREATE TABLE Words (word TEXT)");
     console.log("New table Words created!");
@@ -32,8 +35,8 @@ db.serialize(function() {
     const hindi_words = (fs.readFileSync("hindi_curated.csv")).toString().split("\n");
 
     hindi_words.map(function (word) {
-    // insert default dreams
-      db.serialize(function() {
+      // insert default dreams
+      db.serialize(function () {
         db.run(
           'INSERT INTO Words (word) VALUES ("' + word + '")'
         );
@@ -41,7 +44,7 @@ db.serialize(function() {
     });
   } else {
     console.log('Database "Words" ready to go!');
-    db.each("SELECT * from Words LIMIT 10", function(err, row) {
+    db.each("SELECT * from Words LIMIT 10", function (err, row) {
       if (row) {
         console.log("record:", row);
       }
@@ -50,27 +53,32 @@ db.serialize(function() {
 });
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function(request, response) {
+app.get("/", function (request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
 // endpoint to get all the dreams in the database
 // currently this is the only endpoint, ie. adding dreams won't update the database
 // read the sqlite3 module docs and try to add your own! https://www.npmjs.com/package/sqlite3
-app.get("/getWords", function(request, response) {
-  db.all("SELECT * from Words LIMIT 48", function(err, rows) {
+app.get("/getWords", function (request, response) {
+  db.all("SELECT * from Words LIMIT 48", function (err, rows) {
     response.send(JSON.stringify(rows));
   });
 });
 
 
-app.get("/random", function(request, response) {
-  db.all("SELECT * from Words ORDER BY RANDOM() LIMIT 48", function(err, rows) {
+app.get("/random", function (request, response) {
+  db.all("SELECT * from Words ORDER BY RANDOM() LIMIT 48", function (err, rows) {
     response.send(JSON.stringify(rows));
   });
 })
 
+// Hindi endpoints
+app.get("/hindi", (_, response) => response.sendFile(__dirname + "/hindi/views/hindi.html"));
+app.get("/api/v1/hindi", (_, response) => response.send(JSON.stringify(calculateDistance(10))));
+
+
 // listen for requests :)
-var listener = app.listen(40065, function() {
+var listener = app.listen(40065, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });
