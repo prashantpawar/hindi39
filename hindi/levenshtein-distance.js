@@ -31,7 +31,7 @@ const calculateDistance = R.curry((sahastranam) => {
     return distances;
 });
 
-const getWordPairs = R.pipe(loadData, dropNonUniques, calculateDistance, R.take(10));
+const getWordPairs = R.pipe(loadData, dropNonUniques, calculateDistance, R.take(40));
 
 module.exports = {
     getWordPairs
