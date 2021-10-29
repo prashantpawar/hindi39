@@ -1,3 +1,7 @@
 node_modules/
 .bsb.lock
 .merlin
+dist
+dist-ssr
+*.local
+lib/
