@@ -1,0 +1,23 @@
+{
+  "name": "hindi-bip39",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "suffix": ".mjs",
+  "reason": {
+    "react-jsx": 3
+  },
+  "bs-dependencies": [
+    "bs-express",
+    "@rescript/react"
+  ]
+}

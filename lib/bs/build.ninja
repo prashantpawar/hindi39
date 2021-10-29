@@ -1,0 +1,15 @@
+rescript = 1
+g_finger := /home/renegade/dev/cryptodeities/hindi-bip39/node_modules/bs-express/lib/ocaml/install.stamp
+g_finger := /home/renegade/dev/cryptodeities/hindi-bip39/node_modules/@rescript/react/lib/ocaml/install.stamp
+rule astj
+  command = /home/renegade/dev/cryptodeities/hindi-bip39/node_modules/rescript/linux/bsc.exe  -bs-v 9.1.4 -bs-jsx 3  -absname -bs-ast -o $out $i
+o src/index.ast : astj ../../src/index.res
+rule deps
+  command = /home/renegade/dev/cryptodeities/hindi-bip39/node_modules/rescript/linux/bsb_helper.exe -hash 335de725de22c69ec0ace68e4e4bb8ec $in
+  restat = 1
+o src/index.d : deps src/index.ast
+rule mij
+  command = /home/renegade/dev/cryptodeities/hindi-bip39/node_modules/rescript/linux/bsc.exe -I src -I /home/renegade/dev/cryptodeities/hindi-bip39/node_modules/bs-express/lib/ocaml -I /home/renegade/dev/cryptodeities/hindi-bip39/node_modules/@rescript/react/lib/ocaml   -bs-package-name hindi-bip39 -bs-package-output es6:$in_d:.mjs -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/index.cmj src/index.cmi ../../src/index.mjs : mij src/index.ast

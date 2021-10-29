@@ -6,11 +6,16 @@
   "version": "0.0.1",
   "description": "A simple Node app with SQLite as a database management system, instantly up and running.",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "concurrently \"npm run re:start\" \"node server.js\"",
+    "re:build": "rescript",
+    "re:start": "rescript build -w"
   },
   "dependencies": {
+    "@rescript/react": "^0.10.3",
     "axios": "^0.21.1",
+    "bs-express": "^1.0.2",
     "express": "^4.16.3",
     "fast-levenshtein": "^2.0.6",
     "lodash": "^4.17.15",
@@ -28,5 +33,9 @@
     "node",
     "glitch",
     "express"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "rescript": "^9.1.4"
+  }
 }

@@ -2,26 +2,30 @@
 // where your node app starts
 
 // init project
-const _ = require("lodash/fp");
-const express = require("express");
-const bodyParser = require("body-parser");
+import fs from "fs";
+import express from "express"
+import bodyParser from "body-parser"
+import path from 'path';
+import { getWordPairs } from "./levenshtein-distance.js"
+
+const moduleURL = new URL(import.meta.url);
+const __dirname = path.dirname(moduleURL.pathname);
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const { getWordPairs } = require('./hindi/levenshtein-distance');
 
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-// http://expressjs.com/en/starter/static-files.html
+// http://expresses.com/en/starter/static-files.html
 app.use(express.static("public"));
 
 // init sqlite db
-var fs = require("fs");
+import sqlite3 from "sqlite3";
 var dbFile = "./.data/sqlite.db";
 var exists = fs.existsSync(dbFile);
-var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(dbFile);
 console.log(`${exists} exists` + __dirname);
 console.log(process.cwd());
@@ -80,5 +84,12 @@ app.get("/api/v1/hindi", (_, response) => response.send(JSON.stringify(getWordPa
 
 // listen for requests :)
 var listener = app.listen(40065, function () {
-  console.log("Your app is listening on port " + listener.address().port);
+  console.log("Your app is serving http://localhost:" + listener.address().port);
 });
+
+
+import { Hindi } from "./src/index.mjs"
+
+app.get("/hindi-curated", (_, response) =>
+  response.send(Json.stringify(Hindi.lines))
+)

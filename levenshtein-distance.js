@@ -1,9 +1,9 @@
-const R = require("ramda");
-const fs = require("fs");
-const levenshtein = require('fast-levenshtein');
+import R from "ramda";
+import fs from "fs";
+import levenshtein from "fast-levenshtein";
 
-const filename = "hindi_sahstranam_vishnu-filtered.csv";
-const outfilename = "hindi_sahstranam_vishnu-filtered.csv";
+const filename = "./hindi/hindi_sahstranam_vishnu-filtered.csv";
+const outfilename = "./hindi/hindi_sahstranam_vishnu-filtered.csv";
 
 const loadData = _ => (fs.readFileSync(`${__dirname}/${filename}`)).toString().split("\n");
 
@@ -31,8 +31,4 @@ const calculateDistance = R.curry((sahastranam) => {
     return distances;
 });
 
-const getWordPairs = R.pipe(loadData, dropNonUniques, calculateDistance, R.take(40));
-
-module.exports = {
-    getWordPairs
-};
+export const getWordPairs = R.pipe(loadData, dropNonUniques, calculateDistance, R.take(40));
