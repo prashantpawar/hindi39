@@ -17,7 +17,7 @@
   "dependencies": {
     "@rescript/react": "^0.10.3",
     "@ryyppy/rescript-promise": "^2.1.0",
-    "axios": ">=0.21.2",
+    "axios": "^0.21.4",
     "bs-express": "^1.0.2",
     "bs-fetch": "^0.6.2",
     "express": "^4.16.3",
