@@ -16,14 +16,16 @@
   },
   "dependencies": {
     "@rescript/react": "^0.10.3",
+    "@ryyppy/rescript-promise": "^2.1.0",
     "axios": "^0.21.1",
     "bs-express": "^1.0.2",
+    "bs-fetch": "^0.6.2",
     "express": "^4.16.3",
     "fast-levenshtein": "^2.0.6",
     "lodash": "^4.17.15",
+    "ramda": "^0.27.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "ramda": "^0.27.0",
     "sqlite3": "^4.0.0"
   },
   "engines": {

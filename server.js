@@ -21,6 +21,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // http://expresses.com/en/starter/static-files.html
 app.use(express.static("public"));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+})
 
 // init sqlite db
 import sqlite3 from "sqlite3";
@@ -88,8 +93,10 @@ var listener = app.listen(40065, function () {
 });
 
 
-import { Hindi } from "./src/index.mjs"
+import { hindi_words } from "./src/etl.mjs"
 
-app.get("/hindi-curated", (_, response) =>
-  response.send(Json.stringify(Hindi.lines))
-)
+app.get("/api/hindi/curated", (_, response) =>
+  hindi_words().then(words => {
+    response.set('Content-Type', 'application/json')
+    response.send(JSON.stringify(words))
+  }))

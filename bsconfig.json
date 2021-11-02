@@ -18,6 +18,8 @@
   },
   "bs-dependencies": [
     "bs-express",
-    "@rescript/react"
+    "bs-fetch",
+    "@rescript/react",
+    "@ryyppy/rescript-promise"
   ]
 }

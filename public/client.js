@@ -11,14 +11,14 @@ var app = new Vue({
   },
   mounted() {
     axios
-      .get('/random')
+      .get('/hindi_curated')
       .then(response => {
         this.items = _.flow(
           _.map(word => ({
             label: word.word,
             length: splitter.countGraphemes(word.word),
           })),
-          (x => {this.raw = x; return x;}),
+          (x => { this.raw = x; return x; }),
           _.chunk(8),
         )(response.data);
         this.rowGraphemeSum = _.flow(
