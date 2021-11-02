@@ -37,13 +37,13 @@ function App(Props) {
   var list = Belt_Array.mapWithIndex(match[0].words, (function (index, word) {
           return React.createElement("div", {
                       key: String(index),
-                      className: "rounded bg-green-400 text-gray-50 font-semibold text-center py-4"
+                      className: "rounded bg-green-400 text-gray-50 font-semibold text-center py-4 text-xl md:text-3xl sm:text-xl"
                     }, word);
         }));
   return React.createElement("div", {
-              className: "p-4"
+              className: "p-4 container mx-auto"
             }, React.createElement("div", {
-                  className: "grid grid-cols-3 md:grid-cols-6 sm:grid-cols-8 gap-4"
+                  className: "grid grid-cols-3 md:grid-cols-8 sm:grid-cols-8 gap-4"
                 }, list));
 }
 

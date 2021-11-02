@@ -36,14 +36,14 @@ let make = () => {
   let list = {
     Belt.Array.mapWithIndex(state.words, (index, word) => {
       <div
-        className="rounded bg-green-400 text-gray-50 font-semibold text-center py-4"
+        className="rounded bg-green-400 text-gray-50 font-semibold text-center py-4 text-xl md:text-3xl sm:text-xl"
         key={index->Belt.Int.toString}>
         {React.string(word)}
       </div>
     })
   }
-  <div className="p-4">
-    <div className="grid grid-cols-3 md:grid-cols-6 sm:grid-cols-8 gap-4">
+  <div className="p-4 container mx-auto">
+    <div className="grid grid-cols-3 md:grid-cols-8 sm:grid-cols-8 gap-4">
       {list->React.array}
     </div>
   </div>
