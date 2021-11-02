@@ -42,5 +42,9 @@ let make = () => {
       </div>
     })
   }
-  <div className="p-8"> <div className="grid grid-cols-8 gap-4"> {list->React.array} </div> </div>
+  <div className="p-4">
+    <div className="grid grid-cols-3 md:grid-cols-6 sm:grid-cols-8 gap-4">
+      {list->React.array}
+    </div>
+  </div>
 }
