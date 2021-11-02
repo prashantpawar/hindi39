@@ -7,3 +7,4 @@ dist-ssr
 .bsb.lock
 .merlin
 lib/
+.vercel
