@@ -5,23 +5,23 @@ import * as Promises from "fs/promises";
 
 function hindi_words(param) {
   return Promises.readFile("./hindi/hindi_wordlist_bool.csv").then(function (data) {
-    return Promise.resolve(data.toString());
-  }).then(function (raw_data) {
-    var lines = raw_data.split("\r\n");
-    return Promise.resolve(lines.filter(function (line) {
-      var row = line.split(",");
-      return row[1] === "TRUE";
-    }));
-  }).then(function (words) {
-    return Promise.resolve(Belt_Array.map(words, (function (word) {
-      var row = word.split(",");
-      return row[0];
-    })));
-  });
+                  return Promise.resolve(data.toString());
+                }).then(function (raw_data) {
+                var lines = raw_data.split("\r\n");
+                return Promise.resolve(lines.filter(function (line) {
+                                var row = line.split(",");
+                                return row[1] === "TRUE";
+                              }));
+              }).then(function (words) {
+              return Promise.resolve(Belt_Array.map(words, (function (word) {
+                                var row = word.split(",");
+                                return row[0];
+                              })));
+            });
 }
 
 export {
-  hindi_words,
-
+  hindi_words ,
+  
 }
 /* fs/promises Not a pure module */
