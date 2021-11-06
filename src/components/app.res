@@ -33,5 +33,10 @@ let make = () => {
     None
   })
 
-  <> <Pada words=state.words /> <Krama words=state.words /> </>
+  <>
+    <Jata words=state.words />
+    <Krama words=state.words />
+    <Pada words=state.words />
+    <Samhita words=state.words />
+  </>
 }

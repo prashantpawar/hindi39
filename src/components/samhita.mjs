@@ -4,7 +4,7 @@ import * as Utils from "../utils.mjs";
 import * as React from "react";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 
-function Pada(Props) {
+function Samhita(Props) {
   var words = Props.words;
   var list = Belt_Array.mapWithIndex(words, (function (index, word) {
           return Utils.renderWord(index + 1 | 0, word, "bg-green-400", "");
@@ -13,12 +13,12 @@ function Pada(Props) {
               className: "p-4 container mx-auto"
             }, React.createElement("h1", {
                   className: "text-4xl pb-4"
-                }, "पद पाठ"), React.createElement("div", {
-                  className: "grid grid-cols-1 gap-4 max-w-xl m-auto"
+                }, "संहिता पाठ"), React.createElement("div", {
+                  className: "grid grid-cols-3 lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-6 gap-4"
                 }, list));
 }
 
-var make = Pada;
+var make = Samhita;
 
 export {
   make ,
